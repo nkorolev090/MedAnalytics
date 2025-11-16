@@ -1,1 +1,0 @@
-package org.nkoro.medanalytics.feature.home.mainPage

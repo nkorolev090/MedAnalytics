@@ -58,6 +58,11 @@ kotlin {
             implementation (projects.core.ui)
 
             implementation(projects.feature.home)
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+
+            implementation(libs.voyager.navigator)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
