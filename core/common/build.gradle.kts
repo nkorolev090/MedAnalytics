@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
-    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -27,7 +26,7 @@ kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs()
 
-    sourceSets {
+    sourceSets{
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -35,22 +34,14 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.koin.compose)
-            implementation(libs.koin.core)
 
-            implementation(projects.core.ui)
-            implementation(projects.core.common)
-
-            implementation(libs.voyager.navigator)
             implementation(libs.voyager.screenmodel)
-
-            implementation(libs.kotlinx.serialization.json)
         }
     }
 }
 
 android {
-    namespace = "org.nkoro.medanalytics.feature.home"
+    namespace = "org.nkoro.medanalytics.core.common"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {

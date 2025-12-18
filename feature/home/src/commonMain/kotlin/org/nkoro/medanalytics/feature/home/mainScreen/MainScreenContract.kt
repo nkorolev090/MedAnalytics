@@ -9,7 +9,7 @@ import org.nkoro.medanalytics.feature.home.data.model.RingModel
 sealed interface Effect : MviEffect
 
 sealed interface Action : MviAction {
-    data object Open : Action
+    data object LoadFile : Action
 }
 
 data class State(

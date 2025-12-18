@@ -37,5 +37,6 @@ plugins {
 include(":composeApp")
 
 include(":core:ui")
+include(":core:common")
 
 include(":feature:home")

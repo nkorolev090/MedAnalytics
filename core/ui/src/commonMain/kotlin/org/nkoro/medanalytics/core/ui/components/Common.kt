@@ -36,6 +36,7 @@ fun InfoCard(
 @Composable
 fun VerticalProgressBar(
     progress: Double,
+    selected: Boolean,
     modifier: Modifier = Modifier,
     maxProgress: Double = 100.0,
     description: String? = null,
@@ -55,7 +56,8 @@ fun VerticalProgressBar(
                 .background(MaterialTheme.colorScheme.liteWhite)
         ) {
             this@Column.AnimatedVisibility(
-                visible = progress > 0.0, modifier = Modifier
+                visible = selected,
+                modifier = Modifier
                     .align(Alignment.BottomCenter)
             ) {
                 Box(

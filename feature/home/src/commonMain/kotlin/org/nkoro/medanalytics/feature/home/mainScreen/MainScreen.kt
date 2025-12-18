@@ -2,9 +2,7 @@ package org.nkoro.medanalytics.feature.home.mainScreen
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,11 +37,46 @@ private fun MainScreen(
     screenModel: MainScreenModel
 ) {
     val state by screenModel.state.collectAsState()
+    if (state.rings.isNotEmpty()) {
+        ScreenContent(
+            state = state,
+            onAction = screenModel::pushAction,
+        )
+    } else {
+        EmptyScreenContent(onAction = screenModel::pushAction)
+    }
+}
 
-    ScreenContent(
-        state = state,
-        onAction = screenModel::pushAction,
-    )
+@Composable
+private fun EmptyScreenContent(
+    onAction: (Action) -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Text(
+            text = stringResource(Res.string.empty_rings_description),
+            style = MaterialTheme.typography.inter36Normal,
+            color = MaterialTheme.colorScheme.black,
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        Button(
+            onClick = {
+                onAction(Action.LoadFile)
+            },
+            colors = ButtonDefaults.buttonColors(
+                contentColor = MaterialTheme.colorScheme.backgroundColor,
+                containerColor = MaterialTheme.colorScheme.darkGray,
+            )
+        ) {
+            Text(
+                text = stringResource(Res.string.empty_rings_btn_text),
+                style = MaterialTheme.typography.inter14Normal
+            )
+        }
+    }
 }
 
 @Composable
@@ -112,6 +145,7 @@ private fun ScreenContent(
                     state.adminsEvaluation.forEachIndexed { index, model ->
                         VerticalProgressBar(
                             progress = model.evaluation,
+                            selected = index == selectedIndex,
                             description = model.fio,
                             onClick = { selectedIndex = index },
                         )

@@ -16,9 +16,15 @@ data class RingModel(
     val status: RingStatus,
 )
 
-enum class RingStatus {
-    CREATED,
-    NOT_RECORDED,
+enum class RingStatus(val status: String) {
+    CREATED("Запись создана"),
+    NOT_RECORDED("Не записан");
+
+        companion object{
+        fun get(status: String): RingStatus{
+            return RingStatus.entries.associateBy{it.status}[status] ?: NOT_RECORDED
+        }
+    }
 }
 
 fun RingStatus.getStringRes() =
